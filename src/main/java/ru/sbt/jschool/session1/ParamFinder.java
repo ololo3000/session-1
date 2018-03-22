@@ -18,6 +18,8 @@ public class ParamFinder {
     }
 
     private String getParamValue(String keyName) {
+        String value = null;
+
         for (String arg : args) {
             String[] vs = arg.split("=");
             if (vs.length < 2) {
@@ -27,19 +29,14 @@ public class ParamFinder {
                 return vs[1];
             }
         }
-
-        Properties sysProps = System.getProperties();
-        for (Object prop : sysProps.keySet()) {
-            if (prop.equals(keyName)) {
-                return sysProps.get(keyName).toString();
-            }
+        value = System.getProperty(keyName);
+        if (value != null) {
+            return value;
         }
 
-        Map<String, String> env = System.getenv();
-        for (String envName : env.keySet()) {
-            if (envName.equals(keyName)) {
-                return env.get(keyName);
-            }
+        value = System.getenv().get(keyName);
+        if (value != null) {
+            return value;
         }
 
         Properties props = new Properties();
