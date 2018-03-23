@@ -10,11 +10,16 @@ import java.util.Properties;
 
 public class ParamFinder {
     final private String[] args;
-    final private String propFilePath;
+    final Properties props = new Properties();
+
 
     public ParamFinder(String[] args, String path) {
         this.args = args;
-        this.propFilePath = path;
+        try (InputStream input = new FileInputStream(path)) {
+            props.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private String getParamValue(String keyName) {
@@ -39,12 +44,8 @@ public class ParamFinder {
             return value;
         }
 
-        Properties props = new Properties();
-        try { InputStream input = new FileInputStream(propFilePath);
-            props.load(input);
+        if (!props.isEmpty()) {
             return props.getProperty(keyName);
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
 
         return null;
