@@ -98,7 +98,5 @@ public class Problem1 {
             e.printStackTrace();
         }
     }
-
-
 }
 
