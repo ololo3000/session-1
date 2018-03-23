@@ -9,12 +9,13 @@ import java.util.Map;
 import java.util.Properties;
 
 public class ParamFinder {
-    final private String[] args;
-    private Properties props = new Properties();
+    private String[] args;
+    private Properties props;
 
 
     public ParamFinder(String[] args, String path) {
         this.args = args;
+        this.props = new Properties();
         try (InputStream input = new FileInputStream(path)) {
             props.load(input);
         } catch (IOException ex) {
