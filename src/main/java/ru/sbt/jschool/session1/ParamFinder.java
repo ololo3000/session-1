@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class ParamFinder {
     final private String[] args;
-    final Properties props = new Properties();
+    private Properties props = new Properties();
 
 
     public ParamFinder(String[] args, String path) {
